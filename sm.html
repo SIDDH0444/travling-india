@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filterable Image Gallery</title>
+    <style>
+        body {
+            line-height: 1.5;
+            font-family: sans-serif;
+        }
+
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1170px;
+            margin: auto;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        img {
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+        /* .gallery */
+        .gallery {
+            width: 100%;
+            display: block;
+            min-height: 100vh;
+            background-color:#ffffff;
+            padding: 100px 0;
+        }
+
+        .gallery .gallery-filter {
+            padding: 0 15px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .gallery .gallery-filter .filter-item {
+            color: #ffffff;
+            font-size: 17px;
+            border: 2px solid white;
+            text-transform: uppercase;
+            display: inline-block;
+            border-radius: 20px;
+            margin-right: 8px;
+            cursor: pointer;
+            padding: 8px 20px;
+            line-height: 1.2;
+            transition: all 0.3s ease;
+        }
+
+        .gallery .gallery-filter .filter-item.active {
+            color: white;
+            border-color: #16b5ef;
+            background: #16b5ef;
+        }
+
+        .gallery .gallery-item {
+            width: calc(100% / 3);
+            padding: 15px;
+        }
+
+        .gallery .gallery-item-inner img {
+            width: 100%;
+            border: 3px solid #d4dad9;
+        }
+
+        .gallery .gallery-item.show {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .gallery .gallery-item.hide {
+            display: none;
+        }
+
+        @media(max-width: 491px) {
+            .gallery .gallery-item {
+                width: 50%;
+            }
+        }
+
+        @media(max-width: 467px) {
+            .gallery .gallery-item {
+                width: 100%;
+            }
+            .gallery .gallery-filter .filter-item {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="gallery">
+        <div class="container">
+            <div class="row">
+                <div class="gallery-filter">
+                    <span class="filter-item active" data-filter="all">all</span>
+                </div>
+            </div>
+            <div class="row">
+                
+             
+                <div class="gallery-item camera">
+                    <div class="gallery-item-inner">
+                        <img src="assets/destination-11.jpg" alt="destination" />
+                    </div>
+                </div>
+                <div class="gallery-item headphone">
+                    <div class="gallery-item-inner">
+                        <img src="assets/destination-11.jpg" alt="destination" />
+                    </div>
+                </div>
+                <div class="gallery-item camera">
+                    <div class="gallery-item-inner">
+                        <img src="assets/destination-11.jpg" alt="destination" />
+                    </div>
+                </div>
+               <!--  <div class="gallery-item phone">
+                    <div class="gallery-item-inner">
+                        <img src="assets/destination-11.jpg" alt="destination" />
+                    </div>
+                </div>
+                <div class="gallery-item camera">
+                    <div class="gallery-item-inner">
+                        <img src="assets/destination-11.jpg" alt="destination" />
+                    </div>
+                </div>
+                <div class="gallery-item watch">
+                    <div class="gallery-item-inner">
+                        <img src="assets/destination-11.jpg" alt="destination" />
+                    </div>
+                </div> -->
+                
+               
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterItems = document.querySelectorAll('.filter-item');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    filterItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    galleryItems.forEach(galleryItem => {
+                        if (filter === 'all' || galleryItem.classList.contains(filter)) {
+                            galleryItem.classList.remove('hide');
+                            galleryItem.classList.add('show');
+                        } else {
+                            galleryItem.classList.remove('show');
+                            galleryItem.classList.add('hide');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
